@@ -1,9 +1,12 @@
 import streamlit as st
 import time
+from tweet_analyzer import setup_backend
 
 def get_response_from_prompt(prompt):
     # Add backend here
-    pass
+    chain = st.session_state['chain']
+    response = chain.invoke(prompt)
+    return response
 
 def response_generator(prompt):
     response = get_response_from_prompt(prompt)

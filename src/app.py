@@ -1,5 +1,6 @@
 import streamlit as st
 import time
+import tweet_analyzer as ta
 
 def main():
     st.set_page_config(initial_sidebar_state="collapsed")
@@ -25,6 +26,9 @@ def main():
     with col2:
         if st.button("Start Chatting!"):
             st.switch_page("pages/1_chat.py")
+
+    chain = ta.setup_backend()
+    st.session_state['chain'] = chain
 
 if __name__ == "__main__":
     main()
