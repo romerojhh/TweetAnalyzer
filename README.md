@@ -2,5 +2,5 @@
 LLM that analyzes tweets
 
 
-Team members: \n
+Team members: <br />
 Roozeppe Jean Pierre
