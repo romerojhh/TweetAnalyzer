@@ -8,12 +8,12 @@ Team members: <br />
 - Ho Lun Yeung
 - Parvati Jayakumar
 
-  Presentation Template:
-  - Intro
-  - Team Members
-  - Tech Stack
-  - Problem and Solution
-  - Demo: Application used
-  - Example
-  - Thank You
+Presentation Template:
+- Intro
+- Team Members
+- Tech Stack
+- Problem and Solution
+- Demo: Application used
+- Example
+- Thank You
   
