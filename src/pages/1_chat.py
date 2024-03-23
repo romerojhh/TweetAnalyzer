@@ -1,8 +1,12 @@
 import streamlit as st
 import time
 
+def get_response_from_prompt(prompt):
+    # Add backend here
+    pass
+
 def response_generator(prompt):
-    response = "Hey, welcome"
+    response = get_response_from_prompt(prompt)
     for word in response.split():
         yield word + " "
         time.sleep(0.1)
