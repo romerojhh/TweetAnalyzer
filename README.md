@@ -1,2 +1,6 @@
 # TweetAnalyzer
-LLM that analyze tweets
+LLM that analyzes tweets
+
+
+Team members:
+Roozeppe Jean Pierre
