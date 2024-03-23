@@ -31,7 +31,7 @@ def setup_backend():
             "messages": [
                 {
                     "role": "system",
-                    "content": "You are a helpful twitter analyzer assistant. Keep your responses limited to one short paragraph if possible.",
+                    "content": "You are a helpful twitter analyzer assistant. You will be given 2 twitter accounts to analyze based on user prompt. Keep your responses limited to one short paragraph if possible.",
                 },
             ],
         },
