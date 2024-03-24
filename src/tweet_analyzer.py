@@ -26,7 +26,7 @@ def setup_backend():
             "model": "mixtral-8x7b-instruct-fp16",
             "max_tokens": 128,
             "presence_penalty": 0,
-            "temperature": 0.01,
+            "temperature": 0.1,
             "top_p": 0.9,
             "messages": [
                 {
@@ -71,6 +71,8 @@ def setup_backend():
 
     template = """Answer the question based only on the following context:
     {context}
+
+    Note that the word "posted" can be used interchangeably with "tweeted"
 
     Question: {question}
     """
