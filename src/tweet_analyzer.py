@@ -6,6 +6,7 @@ import os
 from langchain_community.embeddings import OctoAIEmbeddings
 from langchain_community.vectorstores import Milvus
 from langchain.text_splitter import CharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain.schema import Document
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
@@ -13,21 +14,17 @@ from langchain_core.output_parsers import StrOutputParser
 def setup_backend():
     load_dotenv()
 
-    OCTOAI_API_TOKEN = os.environ.get("OCTOAI_API_TOKEN")
-
-    os.environ["OCTOAI_API_TOKEN"] = os.getenv("OCTOAI_API_TOKEN")
-
-    template = """Below is an instruction that describes a task. Write a response that appropriately completes the request.\n Instruction:\n{question}\n Response: """
-    prompt = PromptTemplate.from_template(template)
+    print(os.getenv("OCTOAI_API_TOKEN"))
 
     llm = OctoAIEndpoint(
+        octoai_api_token=os.getenv("OCTOAI_API_TOKEN"),
         endpoint_url="https://text.octoai.run/v1/chat/completions",
         model_kwargs={
-            "model": "mixtral-8x7b-instruct-fp16",
-            "max_tokens": 128,
+            "model": "llama-2-70b-chat-fp32",
+            "max_tokens": 256,
             "presence_penalty": 0,
             "temperature": 0.1,
-            "top_p": 0.9,
+            "top_p": 0.92,
             "messages": [
                 {
                     "role": "system",
@@ -36,8 +33,6 @@ def setup_backend():
             ],
         },
     )
-
-    llm_chain = LLMChain(prompt=prompt, llm=llm)
 
     embeddings = OctoAIEmbeddings(endpoint_url="https://text.octoai.run/v1/embeddings")
 
@@ -50,16 +45,32 @@ def setup_backend():
             with open(f"/Users/rhutapea/CodingProjects/TweetAnalyzer/data/{file}") as f:
                 file_text = f.read()
             
-            text_splitter = CharacterTextSplitter.from_tiktoken_encoder(
-                encoding_name="cl100k_base", chunk_size=1024, chunk_overlap=256, 
+            # text_splitter = CharacterTextSplitter(
+            #     separator="\n",
+            #     chunk_size=1000,
+            #     chunk_overlap=200,
+            #     length_function=len,
+            #     is_separator_regex=False,
+            # )
+
+            text_splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(
+                encoding_name="cl100k_base",
+                chunk_size=1024,
+                chunk_overlap=256,
             )
+
+            # text_splitter = CharacterTextSplitter.from_tiktoken_encoder(
+            #     encoding_name="cl100k_base", chunk_size=1024, chunk_overlap=256, 
+            # )
+
             texts = text_splitter.split_text(file_text)
+            # texts = text_splitter_new.create_documents([file_text])
             for i, chunked_text in enumerate(texts):
                 if (len(chunked_text) < 10000):
                     name =  "Joe Biden tweeted: " if file == "JoeBiden.txt" else "Donald Trump tweeted: "
                     file_texts.append(Document(page_content=name + chunked_text, 
-                        metadata={"twitter_user": file.split(".")[0], "chunk_num": i}))
-                    
+                        metadata={"tweet_source": file.split(".")[0], "chunk_num": i}))
+                                        
     vector_store = Milvus.from_documents(
         file_texts,
         embedding=embeddings,
