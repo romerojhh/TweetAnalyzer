@@ -1,6 +1,5 @@
-# TweetAnalyzer
+# TweetAnalyzer 
 LLM that analyzes tweets
-
 
 Team members: <br />
 - Roozeppe Jean Pierre
@@ -8,12 +7,6 @@ Team members: <br />
 - Ho Lun Yeung
 - Parvati Jayakumar
 
-Presentation Template:
-- Intro
-- Team Members
-- Tech Stack
-- Problem and Solution
-- Demo: Application used
-- Example
-- Thank You
-  
+[Presentation slide deck](<demo/Tweet Analyzer.pdf>)
+
+![demo gif](/demo/demo.gif)
