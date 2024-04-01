@@ -1,5 +1,4 @@
 import streamlit as st
-import time
 import tweet_analyzer as ta
 
 def main():
@@ -11,10 +10,8 @@ def main():
 </div>
 """
     st.markdown(html_content, unsafe_allow_html=True)
-    id1 = st.text_input("Enter Twitter ID #1:", "")
-    id2 = st.text_input("Enter Twitter ID #2:", "")
+    id1 = st.text_input("Enter Twitter ID:", "")
     st.session_state['twitter_id1'] = id1
-    st.session_state['twitter_id2'] = id2
 
     st.markdown(
         """
