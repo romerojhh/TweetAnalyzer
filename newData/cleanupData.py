@@ -1,11 +1,19 @@
 import csv
 
 def main():
-    print
-    a = extractCol("newData/DonaldTrump.csv", [1,5], "Donald Trump", [])
-    b = extractCol("newData/JoeBiden.csv", [0,3], "Joe Biden", a)
-    writeData("tweetAggregated", b)
+    joeData = getJoe([])
+    writeData("tweetAggregated", joeData)
 
+def getJoe(data: list):
+    return extractCol("newData/JoeBiden.csv", [0,3], "Joe Biden", data)
+
+def getTrump(data: list):
+    return extractCol("newData/DonaldTrump.csv", [1,5], "Donald Trump", data)
+
+def getJoeAndTrump():
+    a = getTrump([])
+    b = getJoe(a)
+    writeData("tweetAggregated", b)
 
 def extractCol(filename: str, columns_to_keep: list[int], author_name: str, data: list):
     count = 0

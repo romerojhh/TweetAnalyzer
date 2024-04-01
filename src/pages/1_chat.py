@@ -15,7 +15,7 @@ def response_generator(prompt):
         time.sleep(0.1)
 
 def main():
-    if 'twitter_id1' not in st.session_state or 'twitter_id2' not in st.session_state:
+    if 'twitter_id1' not in st.session_state:
         st.switch_page("app.py")
     st.set_page_config(initial_sidebar_state="collapsed")
 
